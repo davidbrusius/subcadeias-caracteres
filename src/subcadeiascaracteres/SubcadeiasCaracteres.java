@@ -36,14 +36,8 @@ public class SubcadeiasCaracteres {
 
         int distanciaMax = getDistanceFromUser();
         String[] padroesP = carregarPadroesP();
-        List<Subcadeia> subcadeiasJakartaEncontradas = null;
-        List<Subcadeia> subcadeiasKualaLumpurEncontradas = null;
-        for(int c = 0; c < padroesP.length; c++) {
-            String padraoP = padroesP[c];
-            subcadeiasJakartaEncontradas = analisarSubcadeias(distanciaMax, padraoP, jakarta);
-            subcadeiasKualaLumpurEncontradas = analisarSubcadeias(distanciaMax, padraoP, kualaLumpur);
-        }
-        
+        List<Subcadeia> subcadeiasJakartaEncontradas = analisarSubcadeias(distanciaMax, padroesP, jakarta);
+        List<Subcadeia> subcadeiasKualaLumpurEncontradas = analisarSubcadeias(distanciaMax, padroesP, kualaLumpur);
         System.out.println("Subcadeias encontradas para o Vírus Jakarta");
         mostrarResultados(subcadeiasJakartaEncontradas);
         System.out.println("\nSubcadeias encontradas para o Vírus Kuala Lumpur");
@@ -94,21 +88,23 @@ public class SubcadeiasCaracteres {
         return distancia;
     }
 
-    private static List<Subcadeia> analisarSubcadeias(int distanciaMax, String padraoP, String jakarta) {
+    private static List<Subcadeia> analisarSubcadeias(int distanciaMax, String[] padroesP, String jakarta) {
         List<Subcadeia> subcadeiasEncontradas = new ArrayList<Subcadeia>();
-        for (int i = 0; i < jakarta.length() - padraoP.length() + 1; i++) {
-            String subcadeia = jakarta.substring(i, padraoP.length() + i);
-            int distancia = medirDistancia(subcadeia, padraoP);
-            if (distancia <= distanciaMax) {
-                subcadeiasEncontradas.add(new Subcadeia(i, subcadeia, padraoP, distancia));
+        for (int c = 0; c < padroesP.length; c++) {
+            String padraoP = padroesP[c];
+            for (int i = 0; i < jakarta.length() - padraoP.length() + 1; i++) {
+                String subcadeia = jakarta.substring(i, padraoP.length() + i);
+                int distancia = medirDistancia(subcadeia, padraoP);
+                if (distancia <= distanciaMax) {
+                    subcadeiasEncontradas.add(new Subcadeia(i, subcadeia, padraoP, distancia));
+                }
             }
         }
-
         return subcadeiasEncontradas;
     }
 
     private static void mostrarResultados(List<Subcadeia> listaSubcadeias) {
-        for(Subcadeia subcadeia : listaSubcadeias) {
+        for (Subcadeia subcadeia : listaSubcadeias) {
             System.out.println(subcadeia.toString());
         }
     }
