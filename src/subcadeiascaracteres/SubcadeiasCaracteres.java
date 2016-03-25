@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -71,10 +70,9 @@ public class SubcadeiasCaracteres {
         return keyboard.nextInt();
     }
 
-    private static int medirDistancia(String subcadeia, String padraoP) {
-        if (subcadeia.equals(padraoP)) {
-            return 0;
-        }
+    private static int medirDistancia(int distanciaMax, String subcadeia, String padraoP) {
+        if(subcadeia.equals(padraoP)) return 0;
+        if(distanciaMax == 0) return -1;
 
         int distancia = 0;
         char[] charSubcadeia = subcadeia.toCharArray();
@@ -82,29 +80,30 @@ public class SubcadeiasCaracteres {
         for (int i = 0; i < charSubcadeia.length; i++) {
             if (charSubcadeia[i] != charPadraoP[i]) {
                 distancia++;
-            }
+            }            
         }
 
         return distancia;
     }
 
-    private static List<Subcadeia> analisarSubcadeias(int distanciaMax, String[] padroesP, String jakarta) {
+    private static List<Subcadeia> analisarSubcadeias(int distanciaMax, String[] padroesP, String DNA) {
         List<Subcadeia> subcadeiasEncontradas = new ArrayList<Subcadeia>();
         for (int c = 0; c < padroesP.length; c++) {
             String padraoP = padroesP[c];
-            for (int i = 0; i < jakarta.length() - padraoP.length() + 1; i++) {
-                String subcadeia = jakarta.substring(i, padraoP.length() + i);
-                int distancia = medirDistancia(subcadeia, padraoP);
-                if (distancia <= distanciaMax) {
+            for (int i = 0; i < DNA.length() - padraoP.length() + 1; i++) {
+                String subcadeia = DNA.substring(i, padraoP.length() + i);
+                int distancia = medirDistancia(distanciaMax, subcadeia, padraoP);
+                if(distancia >= 0 && distancia <= distanciaMax) {
                     subcadeiasEncontradas.add(new Subcadeia(i, subcadeia, padraoP, distancia));
                 }
             }
         }
+
         return subcadeiasEncontradas;
     }
 
     private static void mostrarResultados(List<Subcadeia> listaSubcadeias) {
-        for (Subcadeia subcadeia : listaSubcadeias) {
+        for(Subcadeia subcadeia : listaSubcadeias) {
             System.out.println(subcadeia.toString());
         }
     }

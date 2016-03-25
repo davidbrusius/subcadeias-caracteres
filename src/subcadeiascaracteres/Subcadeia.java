@@ -21,7 +21,7 @@ class Subcadeia {
         this.padraoP = padraoP;
         this.distancia = distancia;
     }
-    
+        
     @Override
     public String toString() {
         StringBuilder subcadeia = new StringBuilder();
