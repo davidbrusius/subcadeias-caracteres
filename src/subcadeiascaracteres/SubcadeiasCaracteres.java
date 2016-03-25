@@ -1,7 +1,10 @@
 package subcadeiascaracteres;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,15 @@ public class SubcadeiasCaracteres {
         mostrarResultados(subcadeiasJakartaEncontradas);
         System.out.println("\nSubcadeias encontradas para o Vírus Kuala Lumpur");
         mostrarResultados(subcadeiasKualaLumpurEncontradas);
+        
+        try {
+            gravarArquivo("/home/davidbrusius/projects/luiza_longo/EP1/teste.txt", distanciaMax);
+            System.out.print("\nGravando arquivo com resultados..");
+            System.out.println("Ok");
+        } catch (IOException ex) {
+            System.err.println("Erro ao gravar arquivo");
+            System.exit(-1);
+        }
 
         System.out.println("Fim");
     }
@@ -58,6 +70,17 @@ public class SubcadeiasCaracteres {
         return cadeiaDNA;
     }
 
+    public static void gravarArquivo(String path, int distanciaMax) throws IOException {
+        File file = new File(path);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write("Distancia Maxima:  " + distanciaMax);
+        bw.close();
+    }
+
     public static String[] carregarPadroesP() {
         String[] padroesP = new String[]{"actgcttctg", "aggaggctgg", "tacatgccat", "cctcagcatc", "gcaacgttca", "gacattgact"};
 
@@ -71,8 +94,12 @@ public class SubcadeiasCaracteres {
     }
 
     private static int medirDistancia(int distanciaMax, String subcadeia, String padraoP) {
-        if(subcadeia.equals(padraoP)) return 0;
-        if(distanciaMax == 0) return -1;
+        if (subcadeia.equals(padraoP)) {
+            return 0;
+        }
+        if (distanciaMax == 0) {
+            return -1;
+        }
 
         int distancia = 0;
         char[] charSubcadeia = subcadeia.toCharArray();
@@ -80,7 +107,7 @@ public class SubcadeiasCaracteres {
         for (int i = 0; i < charSubcadeia.length; i++) {
             if (charSubcadeia[i] != charPadraoP[i]) {
                 distancia++;
-            }            
+            }
         }
 
         return distancia;
@@ -93,7 +120,7 @@ public class SubcadeiasCaracteres {
             for (int i = 0; i < DNA.length() - padraoP.length() + 1; i++) {
                 String subcadeia = DNA.substring(i, padraoP.length() + i);
                 int distancia = medirDistancia(distanciaMax, subcadeia, padraoP);
-                if(distancia >= 0 && distancia <= distanciaMax) {
+                if (distancia >= 0 && distancia <= distanciaMax) {
                     subcadeiasEncontradas.add(new Subcadeia(i, subcadeia, padraoP, distancia));
                 }
             }
@@ -103,7 +130,7 @@ public class SubcadeiasCaracteres {
     }
 
     private static void mostrarResultados(List<Subcadeia> listaSubcadeias) {
-        for(Subcadeia subcadeia : listaSubcadeias) {
+        for (Subcadeia subcadeia : listaSubcadeias) {
             System.out.println(subcadeia.toString());
         }
     }
