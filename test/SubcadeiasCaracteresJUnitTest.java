@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import subcadeiascaracteres.PadraoP;
 import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -65,4 +66,12 @@ public class SubcadeiasCaracteresJUnitTest {
                 "ggaagctaagcttaacgtagttctaacagttttttaattagag" + 
                  "agcagatctctgatgaataaccaacggaaaaaggcg", fileContent);
     }
+    
+    @Test
+    public void carregarPadroesPShouldReturnAnArrayOfPadraoPElements() throws IOException {
+        String[] padroesP = SubcadeiasCaracteres.carregarPadroesP();
+        assertEquals("must return an array of String elements", "actgcttctg", padroesP[0]);
+        assertEquals("must return an array of String elements", "aggaggctgg", padroesP[1]);
+        assertEquals("must return an array of String elements", "tacatgccat", padroesP[2]);
+    }   
 }
