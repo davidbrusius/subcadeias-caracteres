@@ -1,3 +1,2 @@
-1234 Test File With Some Content
-12345 Test File With Multiple Lines
-1234 File Content
+1 agttgttagt ctacgtggac cgacaaagac agattctttg aggaagctaa gcttaacgta
+61 gttctaacag ttttttaatt agagagcaga tctctgatga ataaccaacg gaaaaaggcg

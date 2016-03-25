@@ -53,7 +53,7 @@ public class SubcadeiasCaracteresJUnitTest {
     public void lerArquivoDNAShouldReturnFileContentForSimpleLineFile() throws IOException {
         String pathToSingleLineFile = "/home/davidbrusius/NetBeansProjects/SubcadeiasCaracteres/test/files/single_line_test.txt";
         String fileContent = SubcadeiasCaracteres.lerArquivoDNA(pathToSingleLineFile);
-        assertEquals("must return file content as string", "1234 Test File With Some Content", fileContent);
+        assertEquals("must return file content as string", "agttgttagtctacgtggaccgacaaagacagattctttgaggaagctaagcttaacgta", fileContent);
     }
 
     @Test
@@ -61,8 +61,8 @@ public class SubcadeiasCaracteresJUnitTest {
         String pathToMultipleLineFile = "/home/davidbrusius/NetBeansProjects/SubcadeiasCaracteres/test/files/multiple_line_test.txt";
         String fileContent = SubcadeiasCaracteres.lerArquivoDNA(pathToMultipleLineFile);
         assertEquals("must return file content as string", 
-                "1234 Test File With Some Content" +
-                "12345 Test File With Multiple Lines" +
-                "1234 File Content", fileContent);
+                "agttgttagtctacgtggaccgacaaagacagattctttga" + 
+                "ggaagctaagcttaacgtagttctaacagttttttaattagag" + 
+                 "agcagatctctgatgaataaccaacggaaaaaggcg", fileContent);
     }
 }

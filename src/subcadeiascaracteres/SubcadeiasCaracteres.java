@@ -27,16 +27,15 @@ public class SubcadeiasCaracteres {
     }
 
     public static String lerArquivoDNA(String path) throws IOException {
-        FileReader file = new FileReader(path);
-        BufferedReader reader = new BufferedReader(file);
-        
-        String fileContent = "";
-        String line = reader.readLine();
-        while (line != null) {
-            fileContent += line;
-            line = reader.readLine();
+        String line, columns[];
+        String cadeiaDNA = "";
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        while ((line = br.readLine()) != null) {
+            columns = line.split(" ");
+            cadeiaDNA = cadeiaDNA.concat(columns[1] + columns[2] + columns[3] +
+                    columns[4] + columns[5] + columns[6]);
         }
 
-        return fileContent;
+        return cadeiaDNA;
     }
 }
